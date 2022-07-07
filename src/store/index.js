@@ -1,11 +1,20 @@
-import vuex from'vuex'
-import vue from 'vue'
-import todoMain from './modules/todoMain'
+import Vuex from'vuex'
+import Vue from 'vue'
 
-vue.use(vuex);
+Vue.use(Vuex);
 
-export default new vuex.Store({
-    modules:{
-        todoMain
+export const store = new Vuex.Store({
+    state:{
+           tasks:[
+                {
+                    title:"Ilk gorev",
+                    complete:false
+                },
+                {
+                    title:"Deneme gorevi",
+                    complete:false
+                }
+            ]
+         }
     }
-});
+)

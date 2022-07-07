@@ -13,38 +13,27 @@
 import TodoAdd from "./TodoAdd"
 import TodoHeader from "./TodoHeader"
 import TodoItem from "./TodoItem"
-import { mapGetters } from "vuex"
+
 // import Cookies from 'vue-cookies'
 
 
 export default {
     name: "TodoMain",
-    computed:mapGetters(['tasks']),
+
     components: {
         TodoAdd,
         TodoHeader,
         TodoItem
     },
-    // data(){
-    //      return{
-    //         tasks:[
-    //             {
-    //                 title:"Ilk gorev",
-    //                 complete:false
-    //             },
-    //             {
-    //                 title:"Deneme gorevi",
-    //                 complete:false
-    //             }
-    //         ]
-    //      }
-    // },
+    computed:{
+        tasks(){
+            return this.$store.state.tasks
+        }
+    },
     created(){
         if(localStorage.getItem('tasks')){
             try{
                 this.tasks=JSON.parse(localStorage.getItem("tasks") || '[]')
-                // this.tasks=JSON.parse(sessionStorage.getItem("tasks") || '[]')
-                // this.tasks=JSON.parse(Cookeis.get("tasks") || '[]')
             }
             catch(e){
                 console.log("LocalStorage'da kayit bulunamadi...")
@@ -59,8 +48,6 @@ export default {
         DeleteItem(index){
             this.tasks.splice(index,1)
             localStorage.setItem('tasks',JSON.stringify(this.tasks))
-            // sessionStorage.setItem('tasks',JSON.stringify(this.tasks))
-            // Cookies.set('tasks',JSON.stringify(this.tasks))
         },
         addTask(title){
             if(title!=''){
@@ -70,8 +57,6 @@ export default {
             }
             this.tasks.push(newTask)
             localStorage.setItem('tasks',JSON.stringify(this.tasks))
-            // sessionStorage.setItem('tasks',JSON.stringify(this.tasks))
-            // Cookies.set('tasks',JSON.stringify(this.tasks))
             this.title=''
             }
             else{
